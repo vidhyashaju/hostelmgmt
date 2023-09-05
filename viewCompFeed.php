@@ -1,22 +1,13 @@
 <?php
 include 'connection.php';
+$data=mysqli_query($con,"SELECT * FROM `student`");
 if(isset($_POST['submit'])){
-  $day=$_POST['day'];
-  $breakfast=$_POST['breakfast'];
-  $lunch=$_POST['lunch'];
-  $dinner=$_POST['dinner'];
-  $data=mysqli_query($con,"SELECT `day`FROM `mealsadd` WHERE day='$day'");
-    if(mysqli_num_rows($data)>0){
-      mysqli_query($con,"UPDATE `mealsadd` SET `breakfast`='$breakfast',`lunch`='$lunch',`dinner`='$dinner' WHERE day='$day'");
-    }
-    else{
-      mysqli_query($con,"INSERT INTO `mealsadd`( `day`, `breakfast`, `lunch`, `dinner`) VALUES ('$day','$breakfast','$lunch','$dinner')");
-    }
-   
-}
-  $data=mysqli_query($con,"SELECT `day`, `breakfast`, `lunch`, `dinner` FROM `mealsadd`");
-
+  $stuid=$_POST['stu_id'];
+  $complaints=mysqli_query($con,"SELECT `stu_id`, `complaint`, `date` FROM `complaint` WHERE stu_id='$stuid'");
+  $feedback=mysqli_query($con,"SELECT `feedback`, `stu_id`, `date` FROM `feedback` WHERE stu_id='$stuid'");
+} 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,69 +38,88 @@ if(isset($_POST['submit'])){
     <?php
     include 'navbar.php';
     ?>
+    
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_sidebar.html -->
       <?php
       include 'sidebar.php'
       ?>
-        <div class="col-md-6 grid-margin-lg-0 grid-margin stretch-card">
+       <div class="col-md-6 grid-margin-lg-0 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <form action="" method="POST">
                     <div class="form-group">
-                    <label><h5>Day</h5></label>
-                    <select class="js-example-basic-single w-100" name="day">
-                      <option value="Sunday">Sunday</option>
-                      <option value="Monday">Monday</option>
-                      <option value="Tuesday">Tuesday</option>
-                      <option value="Wednesday">Wednesday</option>
-                      <option value="Thusday">Thursday</option>
-                      <option value="Friday">Friday</option>
-                      <option value="Saturday">Saturday</option>
-                    </select>
+                    <label><h5>Student Name</h5></label>
+                    <select class="form-control" name="stu_id">
+                              <option value="">Select</option>
+                              <?php
+                              while($row=mysqli_fetch_assoc($data))
+                              {
+                                ?>
+                              <option value="<?php echo $row['stu_id'];?>"><?php echo $row['stu_name'];?></option>  
+                              <?php
+                              }
+                              ?>
+                            </select>
+                          
                   </div>
-                  <div class="form-group">
-                      <label for="exampleInputUsername1"><h5>Breakfast</h5></label>
-                      <input type="text" class="form-control" name="breakfast"placeholder="Item Name">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputUsername1"><h5>Lunch</h5></label>
-                      <input type="text" class="form-control" name="lunch"placeholder="Item Name">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputUsername1"><h5>Dinner</h5></label>
-                      <input type="text" class="form-control" name="dinner"placeholder="Item Name">
-                    </div>
-                  
-                  
-                    <button type="submit" class="btn btn-primary mr-2" name="submit">ADD</button>
-                    </form>
-                   </div>
+                  <div>
+                  <button type="submit" class="btn btn-primary mr-2" name="submit">View</button>
+                  </div>
                    <div class="card">
                 <div class="card-body">
-                  <h3>FOOD MENU</h3>
+                  <h3>Complaints</h3>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
                         <tr>
-                          <th>Day</th>
-                          <th>Breakfast</th>
-                          <th>Lunch</th>
-                          <th>Dinner</th>
-                          </tr>
+                          <th>Student Id</th>
+                          <th>Complints</th>
+                          <th>Date</th>
+                         </tr>
                       </thead>
                       <tbody>
                         <?php
-                        while($row=mysqli_fetch_assoc($data))
+                        while($row=mysqli_fetch_assoc($complaints))
                         {
                           ?>
                         <tr>
-                          <td><?php echo $row['day'];?></td>
-                          <td><?php echo $row['breakfast'];?></td>
-                          <td><?php echo $row['lunch'];?></td>
-                          <td><?php echo $row['dinner'];?></td>
-                          </tr>
+                          <td><?php echo $row['stu_id'];?></td>
+                          <td><?php echo $row['complaint'];?></td>
+                          <td><?php echo $row['date'];?></td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+          
+              </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                  <h3>Feedbacks</h3>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Student Id</th>
+                          <th>Feedback</th>
+                          <th>Date</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                        while($row=mysqli_fetch_assoc($feedback))
+                        {
+                          ?>
+                        <tr>
+                          <td><?php echo $row['stu_id'];?></td>
+                          <td><?php echo $row['feedback'];?></td>
+                          <td><?php echo $row['date'];?></td>
+                        </tr>
                         <?php
                         }
                         ?>
@@ -120,8 +130,8 @@ if(isset($_POST['submit'])){
               </div>
             </div>
           
-         
-      <!-- partial -->
+       
+          <!-- partial -->
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->

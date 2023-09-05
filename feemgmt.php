@@ -1,3 +1,7 @@
+<?php
+include 'connection.php';
+$data=mysqli_query($con,"SELECT `stuname`, `roomno`, `type`, `rent`, `date`, `payment_date` FROM `payment_confirm`");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +38,45 @@
       <?php
       include 'sidebar.php'
       ?>
+      <div class="col-lg-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h2>Payment Details</h2>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Student Name</th>
+                          <th>Room No</th>
+                          <th>Room Type</th>
+                          <th>Rent Per Month</th>
+                          <th>Booked Date</th>
+                          <th>Payment Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                         <?php
+                           while($row=mysqli_fetch_assoc($data))
+                           {
+                            ?>
+                            <tr>
+                               <td><?php echo $row['stuname'];?></td> 
+                               <td><?php echo $row['roomno'];?></td> 
+                               <td><?php echo $row['type'];?></td> 
+                               <td><?php echo $row['rent'];?></td> 
+                               <td><?php echo $row['date'];?></td> 
+                               <td><?php echo $row['payment_date'];?></td> 
+                            </tr>
+                            <?php
+                           }
+                           ?>
+                       </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
          
       <!-- partial -->
       <!-- main-panel ends -->

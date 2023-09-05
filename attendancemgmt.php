@@ -2,11 +2,17 @@
 include 'connection.php';
 $data=mysqli_query($con,"SELECT * FROM `student`");
     if(isset($_POST['submit'])){
-      $studentName=$_POST['stu_id'];
-      $status=$_POST['status'];
+      $stuid=$_POST['stu_id'];
+      $data=mysqli_query($con,"SELECT `stu_name` FROM `student` WHERE stu_id='$stuid'");
+      if(mysqli_num_rows($data)>0){
+        $row=mysqli_fetch_assoc($data);
+        $stuname=$row['stu_name'];
+      }
+       $status=$_POST['status'];
       $remark=$_POST['remark'];
+     
       $date=date("Y/m/d");
-      mysqli_query($con,"INSERT INTO `attendance`(`stu_id`, `status`, `remark`, `date`) VALUES ('$studentName','$status','$remark','$date')");
+      mysqli_query($con,"INSERT INTO `attendance`(`stu_id`, `status`, `remark`, `date`, `stu_name`) VALUES ('$stuid','$status','$remark','$date','$stuname')");
     }
     
 ?>
@@ -70,6 +76,7 @@ $data=mysqli_query($con,"SELECT * FROM `student`");
                         </div>
                       </div>
                     </div>
+                   
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">

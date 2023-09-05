@@ -1,19 +1,14 @@
 <?php
 include 'connection.php';
-if(isset($_POST['submit']))
-{
-  $roomno=$_POST['roomno'];
-  $roomtype=$_POST['roomtype'];
-  $fee=$_POST['fee'];
-  $pic=$_FILES['f1']['name'];
-  if($pic!=""){
-    $filearray=pathinfo($_FILES['f1']['name']);
-    $file1=rand();
-    $file_ext=$filearray["extension"];
-    $filenew=$file1.".".$file_ext;
-    move_uploaded_file($_FILES['f1']['tmp_name'],"image/".$filenew);
-  }
-  mysqli_query($con,"INSERT INTO `addroom`(`roomno`, `roomtype`, `fee`, `photo`,`status`) VALUES ('$roomno','$roomtype','$fee','$filenew','not booked')");
+if(isset($_POST['submit'])){
+  $hostelname=$_POST['hostelname'];
+  $address=$_POST['address'];
+  $phone=$_POST['phone'];
+  $email=$_POST['email'];
+  $wardenname=$_POST['wname'];
+  $wphone=$_POST['wphone'];
+  $emergencyphone=$_POST['emphone'];
+  $data=mysqli_query($con,"INSERT INTO `hostel_details`(`hostel_name`, `address`, `phone`, `email`, `wname`, `wphone`, `em_phone`) VALUES ('$hostelname','$address','$phone','$email','$wardenname','$wphone','$emergencyphone')");
 }
 ?>
 <!DOCTYPE html>
@@ -52,37 +47,51 @@ if(isset($_POST['submit']))
       <?php
       include 'sidebar.php'
       ?>
-        <div class="col-12 grid-margin stretch-card">
+      <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h1 class="card-title">Room Details</h1>
-                  <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                  <h2>Hostel Details</h2>
+                  <form class="forms-sample" method="POST">
                     <div class="form-group">
-                      <label for="exampleInputName1">Room No</label>
-                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Room No" name="roomno">
+                      <label for="exampleInputName1">Name</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Hostel Name" name="hostelname">
                     </div>
                     <div class="form-group">
-                      <label for="exampleSelectGender">Room Type</label>
-                        <select class="form-control" id="exampleSelectGender" name="roomtype">
-                          <option value="Single">Single</option>
-                          <option value="Double">Double</option>
-                        </select>
-                      </div>
+                      <label for="exampleTextarea1">Address</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4" name="address"></textarea>
+                    </div>
                     <div class="form-group">
-                      <label>Photo</label>
-                      <input type="file" name="f1">
-                      </div>
+                      <label for="exampleInputPassword4">Phone</label>
+                      <input type="text" class="form-control" id="exampleInputPassword4" placeholder="Phone No" name="phone">
+                    </div>
                     <div class="form-group">
-                      <label for="exampleInputName1">Fee Per Month</label>
-                      <input type="text" class="form-control" id="exampleInputName1" placeholder="Fee Per Month" name="fee">
+                      <label for="exampleInputEmail3">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email" name="email">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Warden Name</label>
+                      <input type="wname" class="form-control" id="exampleInputEmail3" placeholder="Warden Name" name="wname">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Warden Phone</label>
+                      <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Warden Phone No" name="wphone">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">Emergency Contact No</label>
+                      <input type="text" class="form-control" id="exampleInputEmail3" placeholder="Emergency Contact No" name="emphone">
                     </div>
                     
                     <button type="submit" class="btn btn-primary mr-2" name="submit">Submit</button>
-                   </form>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
                 </div>
               </div>
             </div>
-          
+            
+         
+      <!-- partial -->
+      <!-- main-panel ends -->
+    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->

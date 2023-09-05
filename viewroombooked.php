@@ -38,7 +38,8 @@ $data=mysqli_query($con,"SELECT * FROM `book_room` WHERE status='pending'");
       <?php
       include 'sidebar.php'
       ?>
-       <div class="col-lg-12 grid-margin stretch-card">
+
+<div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
                   <h2 class="card-title">Booked Rooms</h2>
@@ -66,8 +67,8 @@ $data=mysqli_query($con,"SELECT * FROM `book_room` WHERE status='pending'");
                             <td><?php echo $row['fee'];?></td>
                             <td><?php echo $row['date'];?></td>
                             <td><?php echo $row['status'];?></td>
-                            <td><a href="bookedapprove.php?stu_id=<?php echo $row['stu_id']?>">Approve</a></td>
-                            <td><a href="?stu_id=<?php echo $row['stu_id']?>">Reject</a></td>
+                            <td><a href="bookedapprove.php?roomno=<?php echo $row['roomno']?>">Approve</a></td>
+                            <td><a href="bookedapprove.php?stu_id=<?php echo $row['stu_id']?>">Reject</a></td>
                           </tr>
                           <?php
                         }

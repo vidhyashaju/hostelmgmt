@@ -41,6 +41,18 @@
             <span class="menu-title">Add FoodMenu</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="addcontact.php">
+            <span class="menu-title">Add Contact</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="viewCompFeed.php">
+            <span class="menu-title">View Complaints & Feedbacks</span>
+            </a>
+          </li>
+         
+         
           
          
              

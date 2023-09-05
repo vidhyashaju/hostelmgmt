@@ -40,7 +40,7 @@ $data=mysqli_query($con,"SELECT * FROM `student` WHERE student.status='pending'"
       ?>
        <div class="card">
                 <div class="card-body">
-                  <h3>Registered Users</h3>
+                  <h3>Registered Students</h3>
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
